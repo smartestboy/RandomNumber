@@ -1,0 +1,35 @@
+td {
+	font: 100px ΊΪΜε;
+	text-align: center;
+	background-color:#33FFFF;
+}
+
+form {
+	position: relative;
+	
+}
+
+a:hover{
+	font-color:#0066FF;
+}
+
+#one {
+	width:35px;
+	height:25px;
+	background-color:#33FFFF;
+}
+
+#id_S{
+	font: 50px ΊΪΜε;
+}
+
+#id_s{
+	font: 30px ΊΪΜε;
+}
+
+table {
+	margin:auto;
+}
+body{
+	text-align:center;
+}

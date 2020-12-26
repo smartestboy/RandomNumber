@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+</head>
+<body>
+	<h1>下面的25宫格会随机分布1到25的数字，请在15秒内按顺序找到数字对应位置</h1>
+	<input type="button" value="开始" id="start" />
+	<!-- 展示时间 -->
+	<div>
+		<span id="id_S">0</span><span id=id_s>s</span>
+	</div>
+	<p id="hang" />
+</body>
+
+<script type="text/javascript">
+		//显示时间
+		var timer = null;
+		var count = 0;
+		$(document).ready(function() {//代表在加载完整个页面后才执行包含的js
+			//时间开始、停止函数
+			$("#start").click(function() {
+				//计时函数调用
+				timer = self.setInterval(function clock() {
+					count++;
+					$("#id_S").text(count);//不是用val
+
+				}, 1000);
+				$("#start").attr("disabled", "false");
+			});
+		});
+		//生成方格
+		function getDiffGroup(num, min, max) {
+			var res = [];
+			for ( var i = min; i <= max; i++) { //从最小数开始 加一 到最大数
+				res.push(i);//将所有的数 push到数组中
+			}
+			res.sort(function() {
+				return 0.5 - Math.random(); //随机数排序
+			});
+			var rst = [];
+			for ( var i = 0; i < res.length; i += num) {
+				rst.push(res.slice(i, i + num));//数组中放入截取后的数组
+			}
+			return rst;
+		}
+		var rst = getDiffGroup(5, 1, 25);//5*5二维数组
+		//console.log(rst.join('\n'));
+
+		var str = "";
+		//var z = 0;
+		str += '<table border="3">';
+
+		for ( var x = 0; x < rst.length; x++) {
+			str += "<tr>";
+			for ( var y = 0; y < rst[x].length; y++) {
+				//str += "<td id=" + (z++) + ">" + rst[x][y] + "</td>";
+				str += "<td><font color ='black'>" + rst[x][y] + "</font></td>";
+
+			}
+			str += "</tr>";
+		}
+		document.getElementById("hang").innerHTML = str;
+
+		//改变方格状态
+		var td_text = 0;
+		var td_textTag = 1;
+		var td_stopTag = 25;
+		$(document).ready(function() {
+			$("td").click(function() {
+				td_text = $(this).text();
+				//规定点击顺序
+				if(td_text == td_textTag) {
+					//alert(td_text);
+					/* var id_text = $(this).text();
+					alert(id_text); */
+					$(this).children().css("color", "#778899");
+					td_textTag++;
+					if (td_text == td_stopTag) {
+						//时间停止函数
+						self.clearInterval(timer);
+					};
+				} else{
+					alert("请按顺序点击");
+				};
+			});
+		});
+		//时间停止函数
+</script>
+</html>
